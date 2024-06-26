@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { getServerSession } from 'next-auth'
 import { ReactNode } from 'react'
-import { cookies } from 'next/headers'
 import { Flex } from '@/components/flex'
 import { NAVBAR_MARGIN } from '@/components/layout/navbar'
 import { Paragraph } from '@/components/typography/paragraph'
@@ -11,9 +10,6 @@ import { Button } from '@/components/ui/button'
 import { UserAvatar } from '@/components/user-avatar'
 import { cn } from '@/lib/utils'
 
-const cookie = cookies().get('email');
-const email = cookie?.value;
-console.log('Email do cookie:', email);
 export default async function DashboardLayout({
   children,
 }: Readonly<{
@@ -35,7 +31,7 @@ export default async function DashboardLayout({
             <UserAvatar />
             <Flex className="items-center justify-center gap-1">
               <h4>
-                <span className="font-normal">{email}</span> 
+                <span className="font-normal">Seja bem-vindo</span> 
               </h4>
               <Paragraph size={300}>Universitário</Paragraph>
             </Flex>
