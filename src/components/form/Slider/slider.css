@@ -1,0 +1,37 @@
+.custom .rc-slider-track,
+.custom .rc-slider-rail {
+  @apply h-2
+}
+
+.custom.rc-slider-disabled {
+  @apply bg-transparent
+}
+
+.custom.rc-slider-disabled  .rc-slider-track {
+  @apply bg-neutral-500
+}
+
+.custom.rc-slider-disabled .rc-slider-handle {
+  @apply border-black-disabled
+}
+
+.custom .rc-slider-rail {
+  @apply bg-neutral-100
+}
+
+.custom .rc-slider-track {
+  @apply bg-primary-700
+}
+
+.custom .rc-slider-handle {
+  @apply bg-white border-primary-700 h-4 w-4 opacity-100
+}
+
+.custom .rc-slider-handle:hover {
+  @apply border-purple-500
+}
+
+.custom .rc-slider-handle:focus-visible,
+.rc-slider-handle.rc-slider-handle-dragging {
+  @apply  !shadow-none !border-primary-700
+}
