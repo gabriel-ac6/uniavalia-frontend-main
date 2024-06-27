@@ -21,25 +21,7 @@ export default function Home() {
     })
   }
 
-  const institutes = recommendInstituteQuery.data?.institutions || [
-    {
-      institution_name: 'Universidade Universus Veritas Guarulhos',
-      institution_id: 481,
-      institution_state: 'SP',
-      institution: 3,
-      campus_id: 7213,
-      campus_city: 'Guarulhos',
-      match_score: '3.12',
-      average_scores: {
-        avg_crit_location: 2.6,
-        avg_crit_service: 3.1,
-        avg_crit_infrastructure: 3.6,
-        avg_crit_library: 3.8,
-        avg_crit_sports: 2.7,
-        avg_general: 3.2,
-      },
-    },
-  ]
+  const institutes = recommendInstituteQuery.data?.institutions
 
   return (
     <div className="bg-neutral-100 pb-12">
