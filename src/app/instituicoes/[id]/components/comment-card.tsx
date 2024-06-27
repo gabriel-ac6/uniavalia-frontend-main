@@ -9,7 +9,6 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { RecentReview } from '@/services/institution/interfaces/recent-review'
 
 import { ButtonLike } from './button-like'
-import { ButtonUnlike } from './button-unlike'
 import { ButtonReport } from './button-report'
 import { Stars } from './stars'
 
@@ -45,8 +44,8 @@ export function CommentCard({ review }: CommentCardProps) {
         </Flex>
         <Flex>
           <Flex row className="gap-2">
-            <ButtonLike />
-            <ButtonUnlike />
+            <ButtonLike reviewId={review.review_id} />
+
             <ButtonReport reviewId={String(review.review_id)} />
           </Flex>
         </Flex>
