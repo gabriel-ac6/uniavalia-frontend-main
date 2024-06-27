@@ -157,7 +157,7 @@ export function CourseDialog({
                   <Paragraph>Avaliações gerais</Paragraph>
                   <Flex className="gap-2">
                   <GeneralReviews
-                        stars={5}
+                        stars={1}
                         total={
                           course.rating_distribution && course.rating_distribution[1]
                             ? course.rating_distribution[1].percentage
@@ -165,7 +165,7 @@ export function CourseDialog({
                         }
                     />
 <GeneralReviews
-  stars={5}
+  stars={2}
   total={
     course.rating_distribution && course.rating_distribution[2]
       ? course.rating_distribution[2].percentage
@@ -173,7 +173,7 @@ export function CourseDialog({
   }
 />
 <GeneralReviews
-  stars={5}
+  stars={3}
   total={
     course.rating_distribution && course.rating_distribution[3]
       ? course.rating_distribution[3].percentage
@@ -181,7 +181,7 @@ export function CourseDialog({
   }
 />
 <GeneralReviews
-  stars={5}
+  stars={4}
   total={
     course.rating_distribution && course.rating_distribution[4]
       ? course.rating_distribution[4].percentage
