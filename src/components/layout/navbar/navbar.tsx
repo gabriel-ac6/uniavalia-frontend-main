@@ -1,3 +1,4 @@
+'use client'
 import { ArrowRight } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
 import { ReactNode, useEffect, useState } from 'react';
