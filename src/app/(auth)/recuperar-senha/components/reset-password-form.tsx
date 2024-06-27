@@ -1,9 +1,7 @@
 'use client'
-
 import { useMutation } from '@tanstack/react-query'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { toast } from 'react-toastify'
-
 import { Flex } from '@/components/flex'
 import { Form } from '@/components/form/form'
 import { Input } from '@/components/form/input'
@@ -20,7 +18,7 @@ export function ResetPasswordForm() {
     mutationFn: serviceAuthResetPassword,
   })
 
-  function handle({ input }: { input: ResetPasswordData }) {
+  function handle(input: ResetPasswordData) {
     if (!token) {
       toast.error('Token inválido')
       return
@@ -54,16 +52,8 @@ export function ResetPasswordForm() {
       className="flex flex-col gap-10 w-full"
     >
       <Flex className="gap-4">
-        <Input id="password" type="password" placeholder="Insira sua senha">
-          Senha
-        </Input>
-        <Input
-          id="password_confirmation"
-          type="password"
-          placeholder="Confirme sua senha"
-        >
-          Confirmação de Senha
-        </Input>
+        <Input id="password" name="password" type="password" placeholder="Insira sua senha" />
+        <Input id="password_confirmation" name="password_confirmation" type="password" placeholder="Confirme sua senha" />
       </Flex>
 
       <Flex className="justify-between gap-4">
