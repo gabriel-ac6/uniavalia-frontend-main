@@ -20,13 +20,7 @@ export function DetailDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button
-          className="w-fit border-neutral-300 text-black"
-          variant={'outline'}
-          size="lg"
-        >
-          Ver mais
-        </Button>
+
       </DialogTrigger>
       <DialogContent className="w-fit max-w-[95vw] max-h-[95vh] my-auto flex flex-col xl:flex-row gap-18 p-8 xl:p-18 overflow-y-auto">
         <Flex className="min-w-[26rem] gap-6">
