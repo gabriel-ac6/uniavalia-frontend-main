@@ -28,7 +28,7 @@ export function CommentCard({ review }: CommentCardProps) {
           </Avatar>
           <Flex>
             <Paragraph weight="heavy" className="text-black">
-              Boas oportunidades
+             {review.title}
             </Paragraph>
             <Paragraph
               size={200}
