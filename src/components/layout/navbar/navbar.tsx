@@ -1,66 +1,99 @@
 'use client'
-import { ArrowRight } from '@phosphor-icons/react/dist/ssr';
-import Link from 'next/link';
-import { ReactNode, useEffect, useState } from 'react';
-import { getSession } from 'next-auth/react';
 
-import { Button } from '@/components/ui/button';
-import { SheetTrigger } from '@/components/ui/sheet';
+import { CaretRight, Spinner } from '@phosphor-icons/react/dist/ssr'
+import Link from 'next/link'
+import { useSession } from 'next-auth/react'
 
-interface ButtonLinksProps {
-  isMobile?: boolean;
-}
+import { Flex } from '@/components/flex'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { cn } from '@/lib/utils'
 
-interface ButtonLinkProps extends ButtonLinksProps {
-  children?: ReactNode;
-}
+import { Logo } from '../../logo'
+import { Button } from '../../ui/button'
+import { Separator } from '../../ui/separator'
+import { UserAvatar } from '../../user-avatar'
+import { Background } from '../background'
+import { ButtonLinks } from './button-links'
+import { MobileNavbar } from './mobile-navbar'
+import { SignOutMenuItem } from './sign-out-menu-item'
 
-function LinkArrow() {
-  return <ArrowRight size={16} className="text-primary-700 lg:hidden" />;
-}
+export const NAVBAR_HEIGHT = 'h-[69px]'
+export const NAVBAR_MARGIN = 'mt-[69px]'
 
-function ButtonLink({ children, isMobile }: ButtonLinkProps) {
-  const ButtonElement = (
-    <Button size={'link'} variant={'link'} className="text-base text-black">
-      {children}
-      <LinkArrow />
-    </Button>
-  );
+export function Navbar() {
+  const { data: session, status } = useSession()
 
-  if (isMobile) {
-    return <SheetTrigger>{ButtonElement}</SheetTrigger>;
-  }
-
-  return ButtonElement;
-}
-
-export function ButtonLinks({ isMobile = false }: ButtonLinksProps) {
-  const [sessionLoading, setSessionLoading] = useState(true);
-  const [sessionActive, setSessionActive] = useState(false);
-
-
-  async function checkSession() {
-    const session = await getSession();
-    if (session) {
-      setSessionActive(true);
+  function AuthAction() {
+    if (status === 'loading') {
+      return (
+        <Button disabled size={'sm'} className="px-12 text-xs animate-pulse">
+          <Spinner className="animate-spin" />
+        </Button>
+      )
     }
-    setSessionLoading(false);
-  }
-  checkSession();
-  if (sessionLoading) {
-    return null; // Ou algum componente de carregamento enquanto verifica a sessão
+
+    if (!session) {
+      return (
+        <Link href="/login" className="flex items-center">
+          <Button size={'sm'} className="px-12 text-xs">
+            Entrar <CaretRight />
+          </Button>
+        </Link>
+      )
+    }
+
+    return (
+      <Flex className="items-center">
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <UserAvatar />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>Olá, {session.user?.name}</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <Link href={'/perfil'}>
+              <DropdownMenuItem className="cursor-pointer">
+                Perfil
+              </DropdownMenuItem>
+            </Link>
+            <SignOutMenuItem />
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </Flex>
+    )
   }
 
   return (
-    <>
-      <Link href={'/'} passHref>
-        <ButtonLink isMobile={isMobile}>Universidades</ButtonLink>
-      </Link>
-      {sessionActive && (
-        <Link href={'/avaliar'} passHref>
-          <ButtonLink isMobile={isMobile}>Avaliar</ButtonLink>
+    <nav className="sticky top-0 border-b border-b-neutral-300 bg-white w-screen z-50">
+      <Background
+        className={cn(
+          'py-4 flex flex-row justify-between items-center flex-1',
+          NAVBAR_HEIGHT,
+        )}
+      >
+        <Link href={'/'}>
+          <Button variant={'link'} size={'link'}>
+            <Logo />
+          </Button>
         </Link>
-      )}
-    </>
-  );
+        <Flex row className="gap-8 hidden lg:flex">
+          <div className="flex flex-row gap-12 font-semibold text-black">
+            <ButtonLinks />
+          </div>
+          <div className="py-2">
+            <Separator className="" orientation="vertical" />
+          </div>
+          <AuthAction />
+        </Flex>
+        <MobileNavbar />
+      </Background>
+    </nav>
+  )
 }
