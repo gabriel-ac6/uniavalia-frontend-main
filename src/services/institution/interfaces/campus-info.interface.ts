@@ -17,7 +17,7 @@ export interface CampusInfo {
     avg_crit_sports: string
     avg_general: string
   }
-  review_count: number
+  course_review_count: number
   campus_city: string
   institution_state: string
   courses: Courses[]
