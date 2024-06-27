@@ -1,7 +1,7 @@
+'use client'
+
 import { SignOut, User } from '@phosphor-icons/react/dist/ssr'
 import Link from 'next/link'
-import { redirect } from 'next/navigation'
-import { getServerSession } from 'next-auth'
 import { ReactNode } from 'react'
 import { Flex } from '@/components/flex'
 import { NAVBAR_MARGIN } from '@/components/layout/navbar'
@@ -9,14 +9,19 @@ import { Paragraph } from '@/components/typography/paragraph'
 import { Button } from '@/components/ui/button'
 import { UserAvatar } from '@/components/user-avatar'
 import { cn } from '@/lib/utils'
+import { useQuery } from '@tanstack/react-query'
+import { serviceObterDadosUsuario } from '../../services/auth/obter_dados'
+import { UserData } from '../../services/auth/user_data.interface'
 
-export default async function DashboardLayout({
+export default function DashboardLayout({
   children,
 }: Readonly<{
   children: ReactNode,
 }>) {
-
-  const session = await getServerSession()
+  const { data: userData, isLoading } = useQuery<UserData>({
+    queryKey: ['user-data'],
+    queryFn: serviceObterDadosUsuario,
+  })
 
   return (
     <main className="bg-neutral-100 min-h-screen">
@@ -32,8 +37,13 @@ export default async function DashboardLayout({
             <Flex className="items-center justify-center gap-1">
               <h4>
                 <span className="font-normal">Seja bem-vindo</span> 
+                <span className="font-normal"></span> 
+                
               </h4>
-              <Paragraph size={300}>Universitário</Paragraph>
+              {userData && <span className="font-bold">{userData.name}</span>}
+              <Paragraph size={300}>
+                {isLoading ? 'Carregando...' : userData?.email}
+              </Paragraph>
             </Flex>
           </Flex>
         </Flex>
