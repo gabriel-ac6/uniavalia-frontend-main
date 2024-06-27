@@ -142,7 +142,7 @@ export default function Instituicao({ params }: { params: { id: string } }) {
                 </Flex>
                 <Dot />
                 <p>
-                  Baseado em {formatNumber(institution.review_count)} avaliações
+                  Baseado em {formatNumber(institution.course_review_count)} avaliações
                 </p>
               </Flex>
             </Flex>
@@ -257,7 +257,8 @@ export default function Instituicao({ params }: { params: { id: string } }) {
         <Flex className="gap-6">
   <div>
     {institution.course_recent_reviews.map((review) => {
-      return <CommentCard key={review.id} review={review} />;
+      console.log("Esses são os ids das reviews"+review.review_id)
+      return <CommentCard key={review.review_id} review={review} />;
     })}
   </div>
 
